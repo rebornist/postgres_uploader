@@ -16,3 +16,6 @@ vendor/
 
 # JSON 파일 업로드 금지
 *.json
+
+# Excel 파일 업로드 금지
+*.xlsx
