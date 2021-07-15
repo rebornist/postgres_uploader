@@ -5,7 +5,7 @@ import (
 	"postgresUploader/configs"
 )
 
-func CreateTable(fn, tn string) {
+func CreateTable(tn, fn string) {
 	// 엑셀 데이터 추출
 	op := TableDataReader(fn)
 

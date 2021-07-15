@@ -1,4 +1,4 @@
-package mkTable
+package uploadData
 
 import (
 	"strings"
@@ -19,18 +19,17 @@ func TableDataReader(fileName string) [][]string {
 	// 엑셀 데이타 검색 후 추출
 	sheet := file.Sheets[0]
 	for idx, row := range sheet.Rows {
-		if row.Cells[0].String() != "COLUMN_NAME" {
-			var arr []string
-			for _, cell := range row.Cells {
-				if idx == 0 {
-					arr = append(arr, strings.ToLower(cell.String()))
-				} else {
-					arr = append(arr, strings.Replace(cell.String(), "'", "", -1))
-				}
-			}
+		var arr []string
 
-			resp = append(resp, arr)
+		for _, cell := range row.Cells {
+			if idx == 0 {
+				arr = append(arr, strings.ToLower(cell.String()))
+			} else {
+				arr = append(arr, strings.Replace(cell.String(), "'", "", -1))
+			}
 		}
+
+		resp = append(resp, arr)
 	}
 
 	return resp
