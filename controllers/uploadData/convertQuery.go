@@ -41,3 +41,27 @@ func CreateQuery(tn string, data_list [][]string) []string {
 	return resp
 
 }
+
+func CreateDocument(tn string, data_list [][]string) []map[string]string {
+
+	var resp []map[string]string
+
+	fmt.Println(resp)
+
+	for idx, data := range data_list {
+		if idx == 0 {
+			continue
+		}
+
+		doc := make(map[string]string)
+		keys := data_list[0]
+
+		for i, d := range data {
+			doc[keys[i]] = d
+		}
+
+		resp = append(resp, doc)
+	}
+
+	return resp
+}

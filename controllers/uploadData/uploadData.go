@@ -1,6 +1,7 @@
 package uploadData
 
 import (
+	"context"
 	"fmt"
 	"postgresUploader/configs"
 )
@@ -30,4 +31,26 @@ func Upload(tn, fn string) {
 	}
 
 	fmt.Printf("%s Table %d's data upload Success\n", tn, len(qs))
+}
+
+func MongoDBUpload(tn, fn string) {
+
+	// DB 접속
+	client := configs.ConnectMongo()
+
+	col := configs.GetDefaultCollection(client)
+
+	// 엑셀 데이터 추출
+	op := TableDataReader(fn)
+
+	doc := CreateDocument(tn, op)
+
+	for _, d := range doc {
+		if _, err := col.InsertOne(context.TODO(), d); err != nil {
+			panic(err)
+		}
+	}
+
+	client.Disconnect(context.TODO())
+
 }
